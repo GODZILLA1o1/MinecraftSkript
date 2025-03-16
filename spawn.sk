@@ -1,0 +1,45 @@
+# ====================================================
+# Skript by GODZILLA1o1
+# Do NOT claim this Skript as your own.
+# Feel free to use and modify, but give proper credit!
+# ====================================================
+
+options:
+    TPJoin: false
+
+# Teleport players to spawn when they join (if enabled)
+on join:
+    if {@TPJoin} is true:
+        if {spawn} is set:
+            teleport player to {spawn}
+            message "&6You have been teleported to spawn!"
+
+command /setspawn:
+    aliases: spawnset, sethub, hubset, setlobby, lobbyset
+    permission: spawn.setspawn
+    permission message: &cSorry, but you don't have permission to execute this command!
+    description: Set spawn at your location.
+    trigger:
+        set {spawn} to location of player
+        message "&6You have &cset spawn&6 at your location!"
+
+command /spawn:
+    aliases: hub, lobby
+    description: Teleport you to spawn.
+    trigger:
+        if {spawn} is not set:
+            message "&4Error:&c spawn is not set!"
+            stop
+        teleport player to {spawn}
+        message "&6Teleporting..."
+
+command /delspawn:
+    permission: spawn.spawn.delete
+    permission message: &cSorry, but you don't have permission to execute this command!
+    description: Unset spawn location.
+    trigger:
+        if {spawn} is not set:
+            message "&4Error:&c spawn is not set!"
+            stop
+        delete {spawn}
+        message "&6You have successfully unset &cspawn&6!"
